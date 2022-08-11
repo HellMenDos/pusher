@@ -1,0 +1,50 @@
+<div class="create-bot">
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input
+      type="name"
+      matInput
+      [formControl]="name"
+      placeholder="message name">
+
+    <mat-error *ngIf="name.hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>Message_url</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="message_url"
+      placeholder="message message_url">
+
+    <mat-error *ngIf="message_url.hasError('required')">
+      Message_url is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>Date</mat-label>
+    <input
+      type="date"
+      matInput
+      [formControl]="date"
+      placeholder="message date">
+
+    <mat-error *ngIf="date.hasError('required')">
+      Date is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="create()"
+      disabled={{isValid}}>Create</button>
+      <button mat-button mat-dialog-close (click)="close()">Close</button>
+    </div>
+</div>
+

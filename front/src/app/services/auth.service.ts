@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { environment  } from 'src/environments/environment';
 import { SignToken } from 'src/app/types/common';
 import { StorageService } from 'src/app/services/storage.service';
+import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
+import { NewBotPopUp } from '../compoents/popup/new-bot/new-bot.popup';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,8 @@ import { StorageService } from 'src/app/services/storage.service';
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private storage: StorageService
+    private storage: StorageService,
+    private router: Router,
   ) { }
 
   registration(email: string, password: string): Observable<SignToken> {
@@ -30,5 +34,21 @@ export class AuthService {
     }).pipe(
       map((data) => this.storage.setData<SignToken>("tokens",data)),
     )
+  }
+
+  refresh() {
+    const data = this.storage.getData("tokens")
+
+    this.http.get<SignToken>(`${environment.APP_URL}users/refresh/`,{
+      headers: {
+        Authorization: `Bearer ${data?.refresh_token}`
+      }
+    }).subscribe({
+      next: (data) => this.storage.setData<SignToken>("tokens",data),
+      error: (error) => {
+        this.storage.remove("tokens")
+        this.router.navigate(['/auth'])
+      }
+    })
   }
 }

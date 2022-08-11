@@ -1,0 +1,60 @@
+<div class="create-bot">
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>fullname</mat-label>
+    <input
+      type="name"
+      matInput
+      [formControl]="fullname"
+      placeholder="item fullname">
+
+    <mat-error *ngIf="fullname.hasError('required')">
+      Fullname is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>Username</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="username"
+      placeholder="item username">
+
+    <mat-error *ngIf="username.hasError('required')">
+      Username is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>message_id</mat-label>
+    <input
+      type="number"
+      matInput
+      [formControl]="message_id"
+      placeholder="item message_id">
+
+    <mat-error *ngIf="message_id.hasError('required')">
+      Message_id is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>Chat_id</mat-label>
+    <input
+      type="number"
+      matInput
+      [formControl]="chat_id"
+      placeholder="item chat_id">
+
+    <mat-error *ngIf="chat_id.hasError('required')">
+      Chat_id is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="create()"
+      disabled={{isValid}}>Create</button>
+      <button mat-button mat-dialog-close (click)="close()">Close</button>
+    </div>
+</div>
+

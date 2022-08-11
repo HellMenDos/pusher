@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 
 
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -26,9 +28,11 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    this.auth.registration(
+    this.auth.login(
       this.emailFormControl.value,
       this.passwordFormControl.value
-    ).subscribe((data) => console.log(data))
+    ).subscribe({
+      next: () => this.router.navigate(['/notify'])
+    })
   }
 }

@@ -1,8 +1,60 @@
-<h1 mat-dialog-title>Delete file</h1>
-<div mat-dialog-content>
-  Would you like to delete cat.jpeg?
+<div class="create-bot">
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input
+      type="name"
+      matInput
+      [formControl]="name"
+      placeholder="bot name">
+
+    <mat-error *ngIf="name.hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>hash</mat-label>
+    <input
+      type="hash"
+      matInput
+      [formControl]="hash"
+      placeholder="bot hash">
+
+    <mat-error *ngIf="hash.hasError('required')">
+      Hash is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>Url</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="url"
+      placeholder="bot url">
+
+    <mat-error *ngIf="name.hasError('required')">
+      Url is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="password-full-width" appearance="fill">
+    <mat-label>User url</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="users_url"
+      placeholder="bot user url">
+
+    <mat-error *ngIf="users_url.hasError('required')">
+      User_url is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="create()"
+      disabled={{isValid}}>Create</button>
+      <button mat-button mat-dialog-close (click)="close()">Close</button>
+    </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>No</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
-</div>
+

@@ -20,12 +20,12 @@ async def create_item(
     return result
 
 
-@router.delete('/{id}',dependencies=[Depends(JWTBearer())], tags=["items"])
+@router.delete('/{item_id}',dependencies=[Depends(JWTBearer())], tags=["items"])
 async def delete_bot(
         db: Session = Depends(models.get_db),
-        item_it:int = None, 
+        item_id:int = None, 
     ):
-    result = remove(db,item_it)
+    result = remove(db,item_id)
     return result
 
 @router.get('/{message_id}',dependencies=[Depends(JWTBearer())], tags=["items"])

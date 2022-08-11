@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
+import { NewBotPopUp } from '../compoents/popup/new-bot/new-bot.popup';
 
 
 const routes: Routes = [

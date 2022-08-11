@@ -20,7 +20,7 @@ def token_response(access_token: str,refresh_token: str):
 def signJWT(user_id: str) -> Dict[str, str]:
     access_payload = {
         "user_id": user_id,
-        "expires": time.time() + 60
+        "expires": time.time() + 600
     }
     refresh_payload = {
         "user_id": user_id,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,7 +14,9 @@ export class RegistrationComponent implements OnInit {
   public passwordRecoveryFormControl = new FormControl('', [Validators.required]);
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
+
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +35,9 @@ export class RegistrationComponent implements OnInit {
     this.auth.registration(
       this.emailFormControl.value,
       this.passwordFormControl.value
-    ).subscribe((data) => console.log(data))
+    ).subscribe({
+      next: () => this.router.navigate(['/notify'])
+    })
   }
 
 }

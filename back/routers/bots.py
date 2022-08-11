@@ -19,7 +19,7 @@ async def create_bot(
     result = create(body,db,data["user_id"])
     return result
 
-@router.put('/{id}',dependencies=[Depends(JWTBearer())], tags=["bots"])
+@router.put('/{bot_it}',dependencies=[Depends(JWTBearer())], tags=["bots"])
 async def update_bot(
         db: Session = Depends(models.get_db),
         bot_it:int = None, 
@@ -28,11 +28,10 @@ async def update_bot(
     result = update(body,db,bot_it)
     return result
 
-@router.delete('/{id}',dependencies=[Depends(JWTBearer())], tags=["bots"])
+@router.delete('/{bot_it}',dependencies=[Depends(JWTBearer())], tags=["bots"])
 async def delete_bot(
         db: Session = Depends(models.get_db),
         bot_it:int = None, 
-        body: main.BotDTO = None
     ):
     result = remove(db,bot_it)
     return result

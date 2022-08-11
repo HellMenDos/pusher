@@ -18,16 +18,16 @@ async def create_message(
     result = create(body,db,bot_id)
     return result
 
-@router.put('/{id}',dependencies=[Depends(JWTBearer())], tags=["messages"])
+@router.put('/{message_id}',dependencies=[Depends(JWTBearer())], tags=["messages"])
 async def update_message(
         db: Session = Depends(models.get_db),
         message_id:int = None, 
-        body: main.BotDTO = None
+        body: main.MessageDTO = None
     ):
     result = update(body,db,message_id)
     return result
 
-@router.delete('/{id}',dependencies=[Depends(JWTBearer())], tags=["messages"])
+@router.delete('/{message_id}',dependencies=[Depends(JWTBearer())], tags=["messages"])
 async def delete_message(
         db: Session = Depends(models.get_db),
         message_id:int = None, 

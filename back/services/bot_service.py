@@ -29,7 +29,7 @@ def update(data: main.BotDTO,db: Session, bot_id: int) -> dict:
         .query(models.BotModel)\
         .filter(models.BotModel.id==bot_id)\
         .first()
-
+    print(bot_id)
     bot.name = data.name
     bot.hash = data.hash
     bot.url = data.url
