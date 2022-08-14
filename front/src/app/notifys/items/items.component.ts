@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
 import { State } from 'src/app/store';
 import { Items, LoadItems } from '../../store/actions/items';
 import { ItemService } from '../../services/item.service';
@@ -25,8 +26,13 @@ export class ItemsComponent implements OnInit {
     private store: Store<State>,
     private activateRoute: ActivatedRoute,
     public dialog: MatDialog,
+    private location: Location
+
     ) {}
 
+  back() {
+    this.location.back()
+  }
 
   ngOnInit() {
     this.activateRoute.params.subscribe(params=> {

@@ -17,8 +17,8 @@ def create(data: main.MessageDTO,db: Session, bot_id: int) -> dict:
         creater=bot.id
     )
 
-    bot.messages.append(message)
-    db.add_all([bot,message])
+    # bot.messages.append(message)
+    db.add_all([message])
     db.commit()
     db.refresh(message)
     return message
@@ -39,11 +39,10 @@ def update(data: main.MessageDTO,db: Session, message_id: int) -> dict:
     return message
 
 def remove(db: Session, message_id: int):
-    return db\
-        .query(models.MessageModel)\
-        .filter(models.MessageModel.id==message_id)\
-        .delete()
-
+    instance = db.query(models.MessageModel).filter(models.MessageModel.id==message_id).delete()
+    db.commit()
+    return instance
+     
 def get(db: Session, bot_id: int) -> dict:
     return db\
         .query(models.MessageModel)\

@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit {
       this.emailFormControl.value,
       this.passwordFormControl.value
     ).subscribe({
-      next: () => this.router.navigate(['/notify'])
+      next: () => this.router.navigate(['/auth'])
     })
   }
 

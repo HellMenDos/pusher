@@ -18,7 +18,7 @@ def create(data: main.ItemDTO,db: Session, message_id: int) -> dict:
         creater=message.id
     )
 
-    message.items.append(item)
+    # message.items.append(item)
     db.add_all([message,item])
     db.commit()
     db.refresh(item)
@@ -26,10 +26,12 @@ def create(data: main.ItemDTO,db: Session, message_id: int) -> dict:
 
 
 def remove(db: Session, item_id: int):
-    return db\
+    instance = db\
         .query(models.ItemModel)\
         .filter(models.ItemModel.id==item_id)\
         .delete()
+    db.commit()
+    return instance
 
 def get(db: Session, message_id: int) -> dict:
     return db\

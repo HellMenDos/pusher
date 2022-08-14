@@ -18,7 +18,7 @@ def create(data: main.BotDTO,db: Session, user_id: int) -> dict:
         creater=user.id
     )
 
-    user.bots.append(bot)
+    # user.bots.append(bot)
     db.add_all([bot,user])
     db.commit()
     db.refresh(bot)
@@ -29,7 +29,7 @@ def update(data: main.BotDTO,db: Session, bot_id: int) -> dict:
         .query(models.BotModel)\
         .filter(models.BotModel.id==bot_id)\
         .first()
-    print(bot_id)
+
     bot.name = data.name
     bot.hash = data.hash
     bot.url = data.url
@@ -41,10 +41,12 @@ def update(data: main.BotDTO,db: Session, bot_id: int) -> dict:
     return bot
 
 def remove(db: Session, bot_id: int):
-    return db\
+    instance =  db\
         .query(models.BotModel)\
         .filter(models.BotModel.id==bot_id)\
         .delete()
+    db.commit()
+    return instance 
 
 def get(db: Session, user_id: int) -> dict:
     return db\

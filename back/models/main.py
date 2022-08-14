@@ -6,18 +6,18 @@ from sqlalchemy.orm import relationship
 from .init import Base
 
 users_bots = Table('users_bots', Base.metadata,
-    Column('user_id', ForeignKey('users.id'), primary_key=True),
-    Column('bot_id', ForeignKey('bots.id'), primary_key=True)
+    Column('user_id', ForeignKey('users.id', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True),
+    Column('bot_id', ForeignKey('bots.id', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
 )
 
 bots_messages = Table('bots_messages', Base.metadata,
-    Column('bot_id', ForeignKey('bots.id'), primary_key=True),
-    Column('message_id', ForeignKey('messages.id'), primary_key=True)
+    Column('bot_id', ForeignKey('bots.id', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True),
+    Column('message_id', ForeignKey('messages.id', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
 )
 
 messages_item = Table('messages_item', Base.metadata,
-    Column('message_id', ForeignKey('messages.id'), primary_key=True),
-    Column('item_id', ForeignKey('items.id'), primary_key=True)
+    Column('message_id', ForeignKey('messages.id', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True),
+    Column('item_id', ForeignKey('items.id', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
 )
 
 
@@ -27,7 +27,7 @@ class UserModel(Base):
     email = Column(String,unique=True)
     password = Column(String)
     is_active = Column(Boolean,default=False)
-    bots = relationship("BotModel", secondary="users_bots", back_populates='user')
+    bots = relationship("BotModel",cascade = "all,delete", secondary="users_bots", back_populates='user')
 
 class BotModel(Base):
     __tablename__ = 'bots'
@@ -37,10 +37,10 @@ class BotModel(Base):
     hash = Column(String, nullable=False, unique=True)
     url = Column(String, nullable=False)
     users_url = Column(String, nullable=False)
-    creater = Column(Integer, ForeignKey(UserModel.id))
+    creater = Column(Integer, ForeignKey(UserModel.id, ondelete="CASCADE", onupdate="CASCADE"))
 
-    user = relationship("UserModel", secondary="users_bots", back_populates='bots')
-    messages = relationship("MessageModel", secondary="bots_messages", back_populates='bot')
+    user = relationship("UserModel",cascade = "all,delete", secondary="users_bots", back_populates='bots')
+    messages = relationship("MessageModel",cascade = "all,delete", secondary="bots_messages", back_populates='bot')
 
 
 class MessageModel(Base):
@@ -50,10 +50,10 @@ class MessageModel(Base):
     message_url = Column(String, nullable=False)
     name = Column(String, nullable=False)
     date = Column(DateTime, nullable=False)
-    creater = Column(Integer, ForeignKey(BotModel.id))
+    creater = Column(Integer, ForeignKey(BotModel.id, ondelete="CASCADE", onupdate="CASCADE"))
 
-    bot = relationship("BotModel", secondary="bots_messages", back_populates='messages')
-    items = relationship("ItemModel", secondary="messages_item", back_populates='message')
+    bot = relationship("BotModel",cascade = "all,delete", secondary="bots_messages", back_populates='messages')
+    items = relationship("ItemModel",cascade = "all,delete", secondary="messages_item", back_populates='message')
 
 
 class ItemModel(Base):
@@ -64,6 +64,6 @@ class ItemModel(Base):
     username = Column(String, nullable=False)
     message_id = Column(Integer, nullable=False)
     chat_id = Column(Integer, nullable=False)
-    creater = Column(Integer, ForeignKey(MessageModel.id))
+    creater = Column(Integer, ForeignKey(MessageModel.id, ondelete="CASCADE", onupdate="CASCADE"))
 
-    message = relationship("MessageModel", secondary="messages_item", back_populates='items')
+    message = relationship("MessageModel",cascade = "all,delete", secondary="messages_item", back_populates='items')

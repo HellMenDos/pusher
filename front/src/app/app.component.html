@@ -1,5 +1,6 @@
 <mat-toolbar>
   <span>Pusher</span>
+  <div *ngIf="isAuth" class="exit" (click)="exit()">Exit</div>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

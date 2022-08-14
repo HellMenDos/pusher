@@ -18,7 +18,7 @@ def create_user(data: main.UserDTO,db: Session) -> dict:
 
 def check_user(data: main.UserDTO,db: Session) -> dict:
     user = db.query(models.UserModel).filter(models.UserModel.email==data.email).first()
-    if user: 
+    if user and user.is_active: 
         password = encode_pass(data.password)
         return user if bcrypt.checkpw(password, encode_pass(user.password)) else {}
     else:

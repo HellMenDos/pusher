@@ -41,7 +41,9 @@ export class NotifysComponent implements OnInit  {
   }
 
   delete(id: number) {
-    this.bot.delete(id).subscribe((data) => console.log(data))
+    this.bot.delete(id).subscribe((data) => {
+      this.store.dispatch(new LoadBots())
+    })
   }
 
   updateDialog(data: BotFields): void {

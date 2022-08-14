@@ -1,5 +1,6 @@
 <main class="main-rows">
-  <button mat-raised-button color="primary" type="button" (click)="openDialog()">Create Message</button>
+  <button mat-raised-button color="primary" type="button" (click)="openDialog()">Create item</button>
+  <a (click)="back()" routerLink=".."> back </a>
 
   <table mat-table [dataSource]="items" class="mat-elevation-z8">
 

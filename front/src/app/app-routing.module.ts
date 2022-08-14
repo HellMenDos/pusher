@@ -8,6 +8,11 @@ const routes: Routes = [{
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
+    path: '',
+    redirectTo: '/notify',
+    pathMatch: 'full'
+  },
+  {
     path:'notify',
     loadChildren: () => import('./notifys/notifys.module').then(m => m.NotifysModule),
     canActivate: [IsLoginGuard]
